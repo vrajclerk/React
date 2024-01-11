@@ -15,13 +15,13 @@ export default function Navbar(props) {
           <a className="nav-link active" aria-current="page"href="/">Home</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link"href="/">Restaurents</a>
+          <a className="nav-link"href="/TiffinProviderlist">Tiffin</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link"href="/">SignUp</a>
+          <a className="nav-link"href="/SignUp">SignUp</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link"href="/">LogIn</a>
+          <a className="nav-link"href="/Login">LogIn</a>
         </li>
         <li className="nav-item">
           <a className="nav-link"href="/">{props.aboutText}</a>
@@ -39,3 +39,32 @@ export default function Navbar(props) {
 }
 Navbar.propTypes={tittle:PropTypes.string,
                     aboutText:PropTypes.string}
+
+// src/components/NavBar.js
+// import React from 'react';
+// import { Link } from 'react-router-dom';
+
+// const NavBar = () => {
+//   return (
+//     <nav>
+//       <ul>
+//         <li>
+//           <Link to="/">Home</Link>
+//         </li>
+//         <li>
+//           <Link to="/TiffinProvider">Tiffin Provider</Link>
+//         </li>
+        
+//         <li>
+//           <Link to="/Login">Login</Link>
+//         </li>
+//         <li>
+//           <Link to="/Signup">Signup</Link>
+//         </li>
+//       </ul>
+//     </nav>
+//   );
+// };
+
+// export default NavBar;
+

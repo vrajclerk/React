@@ -1,36 +1,61 @@
 // src/components/RestaurantList.js
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+// import React from 'react';
+// import './restrostyle.css';
 
-const TiffinProviderList = () => {
-  const [restaurants, setRestaurants] = useState([]);
+// const TiffinProviderlist = () => {
+//   // Fetch restaurant data or use static data
+//   const restaurants = [
+//     { id: 1, name: 'Restaurant A', cuisine: 'Italian' },
+//     { id: 2, name: 'Restaurant B', cuisine: 'Mexican' },
+//     // Add more restaurant data as needed
+//   ];
 
-  useEffect(() => {
-    // Simulating fetching restaurant data from an API
-    axios.get('https://api.example.com/restaurants')
-      .then((response) => {
-        setRestaurants(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data: ', error);
-      });
-  }, []);
+//   return (
+//     <div>
+//       <h2>Restaurants</h2>
+//       <ul>
+//         {restaurants.map((restaurant) => (
+//           <li key={restaurant.id}>
+//             {restaurant.name} - Cuisine: {restaurant.cuisine}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default TiffinProviderlist;
+
+// src/components/RestaurantList.js
+import React from 'react';
+
+
+const TiffinProviderlist = () => {
+  // Static restaurant data
+  const restaurants = [
+    { id: 1, name: 'Restaurant A', cuisine: 'Italian', address: '123 Main St' },
+    { id: 2, name: 'Restaurant B', cuisine: 'Mexican', address: '456 Oak St' },
+    // Add more restaurant data as needed
+  ];
 
   return (
     <div>
       <h2>Restaurants</h2>
-      <ul>
+      <div className="restaurant-list">
         {restaurants.map((restaurant) => (
-          <li key={restaurant.id}>
+          <div key={restaurant.id} className="restaurant-card">
             <h3>{restaurant.name}</h3>
             <p>Cuisine: {restaurant.cuisine}</p>
             <p>Address: {restaurant.address}</p>
             {/* Add more details as needed */}
-          </li>
+            <button>View Menu</button>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
 
-export default RestaurantList;
+export default TiffinProviderlist;
+
+
