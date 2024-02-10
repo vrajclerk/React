@@ -1,45 +1,67 @@
-import { useCallback, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useCallback, useEffect, useRef } from 'react'
+
 
 
 function App() {
+  //variables defined
   const [length, setLength] = useState(8)
-  const[numberAllowed,setNumberAllowed]=useState(false);
-  const[charAllowed,setCharAllowed]=useState(false);
-  const[password,setPassword]=useState("");
+  const [numberAllowed, setNumberAllowed] = useState(false);
+  const [charAllowed, setCharAllowed] = useState(false)
+  const [password, setPassword] = useState("")
 
-  const passwordGenetator=useCallback(()=> { 
-    let pass=""
-    let str="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+  //useRef hook
+  const passwordRef = useRef(null)
 
-    if(numberAllowed) str +="0123456789"
-    if(charAllowed) str += "@#$%^&*{}[]!_-+=~"
+  //password generator method
+// useCallback Hook returns a memoized callback function.
+// It is done so that it does not need to be recalculated resulting in improved performance. 
+// If we don't use useCallback function would run on every render. 
+  const passwordGenerator = useCallback(() => {
+    let pass = ""
+    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    if (numberAllowed) str += "0123456789"
+    if (charAllowed) str += "!@#$%^&*-_+=[]{}~`"
 
     for (let i = 1; i <= length; i++) {
-      let char=Math.floor(Math.random()*str.length +1) //to create pasword
-      pass=str.charAt(char) //to take value from char index
+      let char = Math.floor(Math.random() * str.length + 1) //return index
+      pass += str.charAt(char) //saves into pass
       
     }
+
     setPassword(pass)
 
-  }, [length,numberAllowed,charAllowed,setPassword])
+
+  }, [length, numberAllowed, charAllowed, setPassword])
+
+  const copyPasswordToClipboard = useCallback(() => {
+    passwordRef.current?.select(); //highlights selection for user when copied(effect)
+    passwordRef.current?.setSelectionRange(0, 999);
+    window.navigator.clipboard.writeText(password)
+  }, [password])
+
+  useEffect(() => {
+    passwordGenerator()
+  }, [length, numberAllowed, charAllowed, passwordGenerator])
   return (
-    <>
-     
-     <div className='w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500'>
-     <h1 className='text-white text-center my-3'>Password generator</h1>
-      <div className='flex shadow rounded-lg overflow-hidden mb-4'>
+    
+    <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500">
+      <h1 className='text-white text-center my-3'>Password generator</h1>
+    <div className="flex shadow rounded-lg overflow-hidden mb-4">
         <input
             type="text"
             value={password}
             className="outline-none w-full py-1 px-3"
-            placeholder="password"
-            readOnly/>
-            <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>copy</button>
-            
-   </div>
-   <div className='flex text-sm gap-x-2'>
+            placeholder="Password"
+            readOnly
+            ref={passwordRef}
+        />
+        <button
+        onClick={copyPasswordToClipboard}
+        className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'
+        >copy</button>
+        
+    </div>
+    <div className='flex text-sm gap-x-2'>
       <div className='flex items-center gap-x-1'>
         <input 
         type="range"
@@ -50,9 +72,8 @@ function App() {
          onChange={(e) => {setLength(e.target.value)}}
           />
           <label>Length: {length}</label>
-    
-        </div>
-        <div className="flex items-center gap-x-1">
+      </div>
+      <div className="flex items-center gap-x-1">
       <input
           type="checkbox"
           defaultChecked={numberAllowed}
@@ -73,10 +94,10 @@ function App() {
               }}
           />
           <label htmlFor="characterInput">Characters</label>
-        </div>
-   </div>
-   </div>
-    </>
+      </div>
+    </div>
+</div>
+    
   )
 }
 
