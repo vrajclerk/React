@@ -46,9 +46,9 @@ export default function Contact() {
                                 <svg
                                     fill="none"
                                     stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="1.5"
                                     viewBox="0 0 24 24"
                                     className="w-8 h-8 text-gray-500"
                                 >
